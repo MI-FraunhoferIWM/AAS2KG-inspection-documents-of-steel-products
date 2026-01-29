@@ -1,0 +1,36 @@
+@prefix ex: <http://www.example.org/#> .
+@prefix ns1: <http://purl.obolibrary.org/obo/> .
+@prefix ns2: <https://w3id.org/pmd/co/> .
+
+ex:test123_chem_comp a ns2:PMD_0000551 ;
+    ns1:RO_0000080 ex:test123_material ;
+    ns2:PMD_0000004 ex:test123_chem_comp_spec .
+
+ex:test123_mass_proportion_carbon a ns2:PMD_0020102 ;
+    ns2:PMD_0000077 ex:test123_fraction_carbon ;
+    ns2:PMD_0025999 ex:test123_some_carbon .
+
+ex:test123_mass_proportion_silicon a ns2:PMD_0020102 ;
+    ns2:PMD_0000077 ex:test123_fraction_silicon ;
+    ns2:PMD_0025999 ex:test123_some_silicon .
+
+ex:test123_chem_comp_spec a ns2:PMD_0025002 ;
+    ns1:RO_0002351 ex:test123_fraction_carbon,
+        ex:test123_fraction_silicon .
+
+ex:test123_some_carbon a ns2:PMD_0020049 ;
+    ns1:BFO_0000050 ex:test123_material .
+
+ex:test123_some_silicon a ns2:PMD_0020050 ;
+    ns1:BFO_0000050 ex:test123_material .
+
+ex:test123_fraction_carbon a ns2:PMD_0025997 ;
+    ns1:IAO_0000039 ns1:UO_0000163 ;
+    ns1:OBI_0001937 "0.2" .
+
+ex:test123_fraction_silicon a ns2:PMD_0025997 ;
+    ns1:IAO_0000039 ns1:UO_0000163 ;
+    ns1:OBI_0001937 "0.19" .
+
+ex:test123_material a ns2:PMD_0000000 .
+
