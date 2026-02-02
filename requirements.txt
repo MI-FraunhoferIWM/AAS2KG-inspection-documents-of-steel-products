@@ -73,3 +73,4 @@ pyrate-limiter==3.9.0
 pydantic==2.8.2
 pydantic-settings
 segno
+pyshacl

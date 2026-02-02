@@ -1,36 +1,48 @@
 @prefix ex: <http://www.example.org/#> .
-@prefix ns1: <http://purl.obolibrary.org/obo/> .
-@prefix ns2: <https://w3id.org/pmd/co/> .
+@prefix ns1: <https://w3id.org/pmd/co/> .
+@prefix ns2: <http://purl.obolibrary.org/obo/> .
 
-ex:test123_chem_comp a ns2:PMD_0000551 ;
-    ns1:RO_0000080 ex:test123_material ;
-    ns2:PMD_0000004 ex:test123_chem_comp_spec .
+ex:IDOSP123_chem_comp a ns1:PMD_0000551 ;
+    ns2:RO_0000080 ex:IDOSP123_material ;
+    ns1:PMD_0000004 ex:IDOSP123_chem_comp_spec .
 
-ex:test123_mass_proportion_carbon a ns2:PMD_0020102 ;
-    ns2:PMD_0000077 ex:test123_fraction_carbon ;
-    ns2:PMD_0025999 ex:test123_some_carbon .
+ex:IDOSP123_mass_proportion_carbon a ns1:PMD_0020102 ;
+    ns1:PMD_0000077 ex:IDOSP123_fraction_carbon ;
+    ns1:PMD_0025999 ex:IDOSP123_some_carbon .
 
-ex:test123_mass_proportion_silicon a ns2:PMD_0020102 ;
-    ns2:PMD_0000077 ex:test123_fraction_silicon ;
-    ns2:PMD_0025999 ex:test123_some_silicon .
+ex:IDOSP123_mass_proportion_chromium a ns1:PMD_0020102 ;
+    ns1:PMD_0000077 ex:IDOSP123_fraction_chromium ;
+    ns1:PMD_0025999 ex:IDOSP123_some_chromium .
 
-ex:test123_chem_comp_spec a ns2:PMD_0025002 ;
-    ns1:RO_0002351 ex:test123_fraction_carbon,
-        ex:test123_fraction_silicon .
+ex:IDOSP123_mass_proportion_nickel a ns1:PMD_0020102 ;
+    ns1:PMD_0000077 ex:IDOSP123_fraction_nickel ;
+    ns1:PMD_0025999 ex:IDOSP123_some_nickel .
 
-ex:test123_some_carbon a ns2:PMD_0020049 ;
-    ns1:BFO_0000050 ex:test123_material .
+ex:IDOSP123_chem_comp_spec a ns1:PMD_0025002 ;
+    ns2:RO_0002351 ex:IDOSP123_fraction_carbon,
+        ex:IDOSP123_fraction_chromium,
+        ex:IDOSP123_fraction_nickel .
 
-ex:test123_some_silicon a ns2:PMD_0020050 ;
-    ns1:BFO_0000050 ex:test123_material .
+ex:IDOSP123_some_carbon a ns1:PMD_0020030 ;
+    ns2:BFO_0000050 ex:IDOSP123_material .
 
-ex:test123_fraction_carbon a ns2:PMD_0025997 ;
-    ns1:IAO_0000039 ns1:UO_0000163 ;
-    ns1:OBI_0001937 "0.2" .
+ex:IDOSP123_some_chromium a ns1:PMD_0020029 ;
+    ns2:BFO_0000050 ex:IDOSP123_material .
 
-ex:test123_fraction_silicon a ns2:PMD_0025997 ;
-    ns1:IAO_0000039 ns1:UO_0000163 ;
-    ns1:OBI_0001937 "0.19" .
+ex:IDOSP123_some_nickel a ns1:PMD_0020051 ;
+    ns2:BFO_0000050 ex:IDOSP123_material .
 
-ex:test123_material a ns2:PMD_0000000 .
+ex:IDOSP123_fraction_carbon a ns1:PMD_0025997 ;
+    ns2:IAO_0000039 ns2:UO_0000163 ;
+    ns2:OBI_0001937 "0.05" .
+
+ex:IDOSP123_fraction_chromium a ns1:PMD_0025997 ;
+    ns2:IAO_0000039 ns2:UO_0000163 ;
+    ns2:OBI_0001937 "16.9" .
+
+ex:IDOSP123_fraction_nickel a ns1:PMD_0025997 ;
+    ns2:IAO_0000039 ns2:UO_0000163 ;
+    ns2:OBI_0001937 "8.5" .
+
+ex:IDOSP123_material a ns1:PMD_0000000 .
 

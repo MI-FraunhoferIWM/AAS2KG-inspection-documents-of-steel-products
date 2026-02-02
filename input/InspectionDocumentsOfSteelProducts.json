@@ -5144,7 +5144,6 @@
                 }
               ],
               "valueType": "xs:float",
-              "value": "0.19",
               "modelType": "Property"
             },
             {
@@ -5297,6 +5296,17 @@
                   }
                 ]
               },
+              "supplementalSemanticIds": [
+                {
+                  "type": "ExternalReference",
+                  "keys": [
+                    {
+                      "type": "GlobalReference",
+                      "value": "http://purl.obolibrary.org/obo/CHEBI_28112"
+                    }
+                  ]
+                }
+              ],
               "idShort": "MassFraction_Ni",
               "displayName": [
                 {
@@ -5309,6 +5319,7 @@
                 }
               ],
               "valueType": "xs:float",
+              "value": "8.5",
               "modelType": "Property"
             },
             {
@@ -5543,6 +5554,17 @@
                   }
                 ]
               },
+              "supplementalSemanticIds": [
+                {
+                  "type": "ExternalReference",
+                  "keys": [
+                    {
+                      "type": "GlobalReference",
+                      "value": "http://purl.obolibrary.org/obo/CHEBI_28073"
+                    }
+                  ]
+                }
+              ],
               "idShort": "MassFraction_Cr",
               "displayName": [
                 {
@@ -5555,6 +5577,7 @@
                 }
               ],
               "valueType": "xs:float",
+              "value": "16.9",
               "modelType": "Property"
             },
             {
@@ -5590,7 +5613,7 @@
                   "keys": [
                     {
                       "type": "GlobalReference",
-                      "value": "http://purl.obolibrary.org/obo/CHEBI_27573"
+                      "value": "http://purl.obolibrary.org/obo/CHEBI_27594"
                     }
                   ]
                 }
@@ -5607,7 +5630,7 @@
                 }
               ],
               "valueType": "xs:float",
-              "value": "0.2",
+              "value": "0.05",
               "modelType": "Property"
             },
             {
