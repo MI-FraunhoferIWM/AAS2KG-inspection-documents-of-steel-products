@@ -1,6 +1,8 @@
 PREFIX aas: <https://admin-shell.io/aas/3/0/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX tto: <https://w3id.org/pmd/tto/>
+PREFIX qudt: <http://qudt.org/schema/qudt/>
 
 PREFIX ns1: <https://admin-shell.io/aas/3/0/Property/>
 PREFIX ns2: <https://admin-shell.io/aas/3/0/Key/>
@@ -26,20 +28,50 @@ PREFIX has_specified_numeric_value: <http://purl.obolibrary.org/obo/OBI_0001937>
 PREFIX has_measurement_unit_label: <http://purl.obolibrary.org/obo/IAO_0000039>
 PREFIX part_of: <http://purl.obolibrary.org/obo/BFO_0000050>
 
+PREFIX scalar_value_specification: <http://purl.obolibrary.org/obo/OBI_0001931>
+PREFIX specifies_value_of: <http://purl.obolibrary.org/obo/OBI_0001927>
 PREFIX mass_percentage: <http://purl.obolibrary.org/obo/UO_0000163>
 
 CONSTRUCT {
 
   ex:PLACEHOLDER_material a material: .
 
-  ex:PLACEHOLDER_some_carbon a portion_of_carbon: ;
-      part_of: ex:PLACEHOLDER_material .
+  # ================ Material properties ===============
+  ex:PLACEHOLDER_tensile_strength a tto:TTO_0000053 ;
+    quality_of: ex:PLACEHOLDER_material . 
 
-  ex:PLACEHOLDER_some_nickel a portion_of_nickel: ;
-      part_of: ex:PLACEHOLDER_material .
+  ex:PLACEHOLDER_tensile_strength_value a scalar_value_specification: ;
+    has_specified_numeric_value: ?tensileStrengthValueFinal ;
+    has_measurement_unit_label: qudt:MegaPA ; 
+    specifies_value_of: ex:PLACEHOLDER_tensile_strength .
 
-  ex:PLACEHOLDER_some_chromium a portion_of_chromium: ;
-      part_of: ex:PLACEHOLDER_material .
+  ex:PLACEHOLDER_yield_strength a tto:TTO_0000009 ;
+    quality_of: ex:PLACEHOLDER_material . 
+
+  ex:PLACEHOLDER_yield_strength_value a scalar_value_specification: ;
+    has_specified_numeric_value: ?yieldStrengthValueFinal ;
+    has_measurement_unit_label: qudt:MegaPA ; 
+    specifies_value_of: ex:PLACEHOLDER_yield_strength .
+
+  ex:PLACEHOLDER_elongation_after_fracture a tto:TTO_0000033 ;
+    quality_of: ex:PLACEHOLDER_material . 
+
+  ex:PLACEHOLDER_elongation_after_fracture_value a scalar_value_specification: ;
+    has_specified_numeric_value: ?elongationAfterFractureValueFinal ;
+    has_measurement_unit_label: qudt:PERCENT ; 
+    specifies_value_of: ex:PLACEHOLDER_elongation_after_fracture .
+
+  # ========= Chemical composition =========
+  # Chemical elements and mass proportions
+  ex:PLACEHOLDER_some_carbon a portion_of_carbon: ; part_of: ex:PLACEHOLDER_material .
+  ex:PLACEHOLDER_some_nickel a portion_of_nickel: ; part_of: ex:PLACEHOLDER_material .
+  ex:PLACEHOLDER_some_chromium a portion_of_chromium: ; part_of: ex:PLACEHOLDER_material .
+  ex:PLACEHOLDER_some_silicon a tto:TTO_0000100 ; part_of: ex:PLACEHOLDER_material .
+  ex:PLACEHOLDER_some_manganese a tto:TTO_0000101 ; part_of: ex:PLACEHOLDER_material .
+  ex:PLACEHOLDER_some_phosphorus a tto:TTO_0000102 ; part_of: ex:PLACEHOLDER_material .
+  ex:PLACEHOLDER_some_sulfur a tto:TTO_0000103 ; part_of: ex:PLACEHOLDER_material .
+  ex:PLACEHOLDER_some_molybdenum a tto:TTO_0000104 ; part_of: ex:PLACEHOLDER_material .
+  ex:PLACEHOLDER_some_nitrogen a tto:TTO_0000105 ; part_of: ex:PLACEHOLDER_material .
 
   ex:PLACEHOLDER_chem_comp a chemical_composition: ;
       quality_of: ex:PLACEHOLDER_material ;
@@ -47,65 +79,161 @@ CONSTRUCT {
 
   ex:PLACEHOLDER_chem_comp_spec a chemical_composition_specification: ;
       has_member: ex:PLACEHOLDER_fraction_carbon ;
+      has_member: ex:PLACEHOLDER_fraction_nickel ;
       has_member: ex:PLACEHOLDER_fraction_chromium ;
-      has_member: ex:PLACEHOLDER_fraction_nickel .
+      has_member: ex:PLACEHOLDER_fraction_silicon ;
+      has_member: ex:PLACEHOLDER_fraction_manganese ;
+      has_member: ex:PLACEHOLDER_fraction_phosphorus ;
+      has_member: ex:PLACEHOLDER_fraction_sulfur ;
+      has_member: ex:PLACEHOLDER_fraction_molybdenum ;
+      has_member: ex:PLACEHOLDER_fraction_nitrogen .
 
+  # Mass proportions
   ex:PLACEHOLDER_mass_proportion_carbon a mass_proportion: ;
       relational_quality_of: ex:PLACEHOLDER_some_carbon ;
       specified_by_value: ex:PLACEHOLDER_fraction_carbon .
-
   ex:PLACEHOLDER_mass_proportion_nickel a mass_proportion: ;
       relational_quality_of: ex:PLACEHOLDER_some_nickel ;
       specified_by_value: ex:PLACEHOLDER_fraction_nickel .
-
   ex:PLACEHOLDER_mass_proportion_chromium a mass_proportion: ;
       relational_quality_of: ex:PLACEHOLDER_some_chromium ;
       specified_by_value: ex:PLACEHOLDER_fraction_chromium .
+  ex:PLACEHOLDER_mass_proportion_silicon a mass_proportion: ;
+      relational_quality_of: ex:PLACEHOLDER_some_silicon ;
+      specified_by_value: ex:PLACEHOLDER_fraction_silicon .
+  ex:PLACEHOLDER_mass_proportion_manganese a mass_proportion: ;
+      relational_quality_of: ex:PLACEHOLDER_some_manganese ;
+      specified_by_value: ex:PLACEHOLDER_fraction_manganese .
+  ex:PLACEHOLDER_mass_proportion_phosphorus a mass_proportion: ;
+      relational_quality_of: ex:PLACEHOLDER_some_phosphorus ;
+      specified_by_value: ex:PLACEHOLDER_fraction_phosphorus .
+  ex:PLACEHOLDER_mass_proportion_sulfur a mass_proportion: ;
+      relational_quality_of: ex:PLACEHOLDER_some_sulfur ;
+      specified_by_value: ex:PLACEHOLDER_fraction_sulfur .
+  ex:PLACEHOLDER_mass_proportion_molybdenum a mass_proportion: ;
+      relational_quality_of: ex:PLACEHOLDER_some_molybdenum ;
+      specified_by_value: ex:PLACEHOLDER_fraction_molybdenum .
+  ex:PLACEHOLDER_mass_proportion_nitrogen a mass_proportion: ;
+      relational_quality_of: ex:PLACEHOLDER_some_nitrogen ;
+      specified_by_value: ex:PLACEHOLDER_fraction_nitrogen .
 
+  # Fraction specifications
   ex:PLACEHOLDER_fraction_carbon a fraction_value_specification: ;
-      has_specified_numeric_value: ?carbonValueStr ;
+      has_specified_numeric_value: ?carbonValueFinal ;
       has_measurement_unit_label: mass_percentage: .
-
   ex:PLACEHOLDER_fraction_nickel a fraction_value_specification: ;
-      has_specified_numeric_value: ?nickelValueStr ;
+      has_specified_numeric_value: ?nickelValueFinal ;
       has_measurement_unit_label: mass_percentage: .
-
   ex:PLACEHOLDER_fraction_chromium a fraction_value_specification: ;
-      has_specified_numeric_value: ?chromiumValueStr ;
+      has_specified_numeric_value: ?chromiumValueFinal ;
+      has_measurement_unit_label: mass_percentage: .
+  ex:PLACEHOLDER_fraction_silicon a fraction_value_specification: ;
+      has_specified_numeric_value: ?siliconValueFinal ;
+      has_measurement_unit_label: mass_percentage: .
+  ex:PLACEHOLDER_fraction_manganese a fraction_value_specification: ;
+      has_specified_numeric_value: ?manganeseValueFinal ;
+      has_measurement_unit_label: mass_percentage: .
+  ex:PLACEHOLDER_fraction_phosphorus a fraction_value_specification: ;
+      has_specified_numeric_value: ?phosphorusValueFinal ;
+      has_measurement_unit_label: mass_percentage: .
+  ex:PLACEHOLDER_fraction_sulfur a fraction_value_specification: ;
+      has_specified_numeric_value: ?sulfurValueFinal ;
+      has_measurement_unit_label: mass_percentage: .
+  ex:PLACEHOLDER_fraction_molybdenum a fraction_value_specification: ;
+      has_specified_numeric_value: ?molybdenumValueFinal ;
+      has_measurement_unit_label: mass_percentage: .
+  ex:PLACEHOLDER_fraction_nitrogen a fraction_value_specification: ;
+      has_specified_numeric_value: ?nitrogenValueFinal ;
       has_measurement_unit_label: mass_percentage: .
 
 }
-
 WHERE {
 
-    # Carbon property
-  ?carbonProp a aas:Property ;
-      ns1:value ?carbonValue ;
-      ns5:supplementalSemanticIds ?carbonSS .
+  # Tensile strength
+  OPTIONAL {
+    ?tensileStrengthProp a aas:Property ;
+        ns1:value ?tensileStrengthValue ;
+        ns5:supplementalSemanticIds ?tensileStrengthSS .
+    ?tensileStrengthSS ns3:keys ?tensileStrengthKey .
+    ?tensileStrengthKey ns2:value "https://w3id.org/pmd/tto/TTO_0000053" .
 
-  ?carbonSS ns3:keys ?carbonKey .
-  ?carbonKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_27594" .
+  } 
+  BIND(COALESCE(?tensileStrengthValue, "N/A") AS ?tensileStrengthValueFinal)
 
-  # Nickel property
-  ?nickelProp a aas:Property ;
-      ns1:value ?nickelValue ;
-      ns5:supplementalSemanticIds ?nickelSS .
+  # Yield strength
+  OPTIONAL {
+    ?yieldStrengthProp a aas:Property ;
+        ns1:value ?yieldStrengthValue ;
+        ns5:supplementalSemanticIds ?yieldStrengthSS .
+    ?yieldStrengthSS ns3:keys ?yieldStrengthKey .
+    ?yieldStrengthKey ns2:value "https://w3id.org/pmd/tto/TTO_0000009" .
 
-  ?nickelSS ns3:keys ?nickelKey .
-  ?nickelKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_28112" .
+  }
+  BIND(COALESCE(?yieldStrengthValue, "N/A") AS ?yieldStrengthValueFinal)
 
-  # Chromium property
-  ?chromiumProp a aas:Property ;
-      ns1:value ?chromiumValue ;
-      ns5:supplementalSemanticIds ?chromiumSS .
+  # Elongation after fracture
+  OPTIONAL {
+    ?elongationProp a aas:Property ;
+        ns1:value ?elongationAfterFractureValue ;
+        ns5:supplementalSemanticIds ?elongationSS .
+    ?elongationSS ns3:keys ?elongationKey .
+    ?elongationKey ns2:value "https://w3id.org/pmd/tto/TTO_0000033" .
+  }
+  BIND(COALESCE(?elongationAfterFractureValue, "N/A") AS ?elongationAfterFractureValueFinal)
 
-  ?chromiumSS ns3:keys ?chromiumKey .
-  ?chromiumKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_28073" .
+  # Optional binding for all elements with default 0
+  OPTIONAL {
+    ?carbonProp a aas:Property ; ns1:value ?carbonValue ; ns5:supplementalSemanticIds ?carbonSS .
+    ?carbonSS ns3:keys ?carbonKey . ?carbonKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_27594" .
+  }
+  BIND(COALESCE(?carbonValue, "N/A") AS ?carbonValueFinal)
 
+  OPTIONAL {
+    ?nickelProp a aas:Property ; ns1:value ?nickelValue ; ns5:supplementalSemanticIds ?nickelSS .
+    ?nickelSS ns3:keys ?nickelKey . ?nickelKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_28112" .
+  }
+  BIND(COALESCE(?nickelValue, "N/A") AS ?nickelValueFinal)
 
+  OPTIONAL {
+    ?chromiumProp a aas:Property ; ns1:value ?chromiumValue ; ns5:supplementalSemanticIds ?chromiumSS .
+    ?chromiumSS ns3:keys ?chromiumKey . ?chromiumKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_28073" .
+  }
+  BIND(COALESCE(?chromiumValue, "N/A") AS ?chromiumValueFinal)
 
-  # Convert to string literals (optional, if needed)
-  BIND(STR(?carbonValue) AS ?carbonValueStr)
-  BIND(STR(?nickelValue) AS ?nickelValueStr)
-  BIND(STR(?chromiumValue) AS ?chromiumValueStr)
+  OPTIONAL {
+    ?siliconProp a aas:Property ; ns1:value ?siliconValue ; ns5:supplementalSemanticIds ?siliconSS .
+    ?siliconSS ns3:keys ?siliconKey . ?siliconKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_27573" .
+  }
+  BIND(COALESCE(?siliconValue, "N/A") AS ?siliconValueFinal)
+
+  OPTIONAL {
+    ?manganeseProp a aas:Property ; ns1:value ?manganeseValue ; ns5:supplementalSemanticIds ?manganeseSS .
+    ?manganeseSS ns3:keys ?manganeseKey . ?manganeseKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_18291" .
+  }
+  BIND(COALESCE(?manganeseValue, "N/A") AS ?manganeseValueFinal)
+
+  OPTIONAL {
+    ?phosphorusProp a aas:Property ; ns1:value ?phosphorusValue ; ns5:supplementalSemanticIds ?phosphorusSS .
+    ?phosphorusSS ns3:keys ?phosphorusKey . ?phosphorusKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_28659" .
+  }
+  BIND(COALESCE(?phosphorusValue, "N/A") AS ?phosphorusValueFinal)
+
+  OPTIONAL {
+    ?sulfurProp a aas:Property ; ns1:value ?sulfurValue ; ns5:supplementalSemanticIds ?sulfurSS .
+    ?sulfurSS ns3:keys ?sulfurKey . ?sulfurKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_26833" .
+  }
+  BIND(COALESCE(?sulfurValue, "N/A") AS ?sulfurValueFinal)
+
+  OPTIONAL {
+    ?molybdenumProp a aas:Property ; ns1:value ?molybdenumValue ; ns5:supplementalSemanticIds ?molybdenumSS .
+    ?molybdenumSS ns3:keys ?molybdenumKey . ?molybdenumKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_28685" .
+  }
+  BIND(COALESCE(?molybdenumValue, "N/A") AS ?molybdenumValueFinal)
+
+  OPTIONAL {
+    ?nitrogenProp a aas:Property ; ns1:value ?nitrogenValue ; ns5:supplementalSemanticIds ?nitrogenSS .
+    ?nitrogenSS ns3:keys ?nitrogenKey . ?nitrogenKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_25555" .
+  }
+  BIND(COALESCE(?nitrogenValue, "N/A") AS ?nitrogenValueFinal)
+
 }

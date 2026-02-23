@@ -1,0 +1,144 @@
+@prefix ex: <http://www.example.org/#> .
+@prefix ns1: <http://purl.obolibrary.org/obo/> .
+@prefix ns2: <https://w3id.org/pmd/co/> .
+
+ex:316-4401_chem_comp a ns2:PMD_0000551 ;
+    ns1:RO_0000080 ex:316-4401_material ;
+    ns2:PMD_0000004 ex:316-4401_chem_comp_spec .
+
+ex:316-4401_elongation_after_fracture_value a ns1:OBI_0001931 ;
+    ns1:IAO_0000039 <http://qudt.org/schema/qudt/PERCENT> ;
+    ns1:OBI_0001927 ex:316-4401_elongation_after_fracture ;
+    ns1:OBI_0001937 "60" .
+
+ex:316-4401_mass_proportion_carbon a ns2:PMD_0020102 ;
+    ns2:PMD_0000077 ex:316-4401_fraction_carbon ;
+    ns2:PMD_0025999 ex:316-4401_some_carbon .
+
+ex:316-4401_mass_proportion_chromium a ns2:PMD_0020102 ;
+    ns2:PMD_0000077 ex:316-4401_fraction_chromium ;
+    ns2:PMD_0025999 ex:316-4401_some_chromium .
+
+ex:316-4401_mass_proportion_manganese a ns2:PMD_0020102 ;
+    ns2:PMD_0000077 ex:316-4401_fraction_manganese ;
+    ns2:PMD_0025999 ex:316-4401_some_manganese .
+
+ex:316-4401_mass_proportion_molybdenum a ns2:PMD_0020102 ;
+    ns2:PMD_0000077 ex:316-4401_fraction_molybdenum ;
+    ns2:PMD_0025999 ex:316-4401_some_molybdenum .
+
+ex:316-4401_mass_proportion_nickel a ns2:PMD_0020102 ;
+    ns2:PMD_0000077 ex:316-4401_fraction_nickel ;
+    ns2:PMD_0025999 ex:316-4401_some_nickel .
+
+ex:316-4401_mass_proportion_nitrogen a ns2:PMD_0020102 ;
+    ns2:PMD_0000077 ex:316-4401_fraction_nitrogen ;
+    ns2:PMD_0025999 ex:316-4401_some_nitrogen .
+
+ex:316-4401_mass_proportion_phosphorus a ns2:PMD_0020102 ;
+    ns2:PMD_0000077 ex:316-4401_fraction_phosphorus ;
+    ns2:PMD_0025999 ex:316-4401_some_phosphorus .
+
+ex:316-4401_mass_proportion_silicon a ns2:PMD_0020102 ;
+    ns2:PMD_0000077 ex:316-4401_fraction_silicon ;
+    ns2:PMD_0025999 ex:316-4401_some_silicon .
+
+ex:316-4401_mass_proportion_sulfur a ns2:PMD_0020102 ;
+    ns2:PMD_0000077 ex:316-4401_fraction_sulfur ;
+    ns2:PMD_0025999 ex:316-4401_some_sulfur .
+
+ex:316-4401_tensile_strength_value a ns1:OBI_0001931 ;
+    ns1:IAO_0000039 <http://qudt.org/schema/qudt/MegaPA> ;
+    ns1:OBI_0001927 ex:316-4401_tensile_strength ;
+    ns1:OBI_0001937 "632" .
+
+ex:316-4401_yield_strength_value a ns1:OBI_0001931 ;
+    ns1:IAO_0000039 <http://qudt.org/schema/qudt/MegaPA> ;
+    ns1:OBI_0001927 ex:316-4401_yield_strength ;
+    ns1:OBI_0001937 "276" .
+
+ex:316-4401_chem_comp_spec a ns2:PMD_0025002 ;
+    ns1:RO_0002351 ex:316-4401_fraction_carbon,
+        ex:316-4401_fraction_chromium,
+        ex:316-4401_fraction_manganese,
+        ex:316-4401_fraction_molybdenum,
+        ex:316-4401_fraction_nickel,
+        ex:316-4401_fraction_nitrogen,
+        ex:316-4401_fraction_phosphorus,
+        ex:316-4401_fraction_silicon,
+        ex:316-4401_fraction_sulfur .
+
+ex:316-4401_elongation_after_fracture a <https://w3id.org/pmd/tto/TTO_0000033> ;
+    ns1:RO_0000080 ex:316-4401_material .
+
+ex:316-4401_some_carbon a ns2:PMD_0020030 ;
+    ns1:BFO_0000050 ex:316-4401_material .
+
+ex:316-4401_some_chromium a ns2:PMD_0020029 ;
+    ns1:BFO_0000050 ex:316-4401_material .
+
+ex:316-4401_some_manganese a <https://w3id.org/pmd/tto/TTO_0000101> ;
+    ns1:BFO_0000050 ex:316-4401_material .
+
+ex:316-4401_some_molybdenum a <https://w3id.org/pmd/tto/TTO_0000104> ;
+    ns1:BFO_0000050 ex:316-4401_material .
+
+ex:316-4401_some_nickel a ns2:PMD_0020051 ;
+    ns1:BFO_0000050 ex:316-4401_material .
+
+ex:316-4401_some_nitrogen a <https://w3id.org/pmd/tto/TTO_0000105> ;
+    ns1:BFO_0000050 ex:316-4401_material .
+
+ex:316-4401_some_phosphorus a <https://w3id.org/pmd/tto/TTO_0000102> ;
+    ns1:BFO_0000050 ex:316-4401_material .
+
+ex:316-4401_some_silicon a <https://w3id.org/pmd/tto/TTO_0000100> ;
+    ns1:BFO_0000050 ex:316-4401_material .
+
+ex:316-4401_some_sulfur a <https://w3id.org/pmd/tto/TTO_0000103> ;
+    ns1:BFO_0000050 ex:316-4401_material .
+
+ex:316-4401_tensile_strength a <https://w3id.org/pmd/tto/TTO_0000053> ;
+    ns1:RO_0000080 ex:316-4401_material .
+
+ex:316-4401_yield_strength a <https://w3id.org/pmd/tto/TTO_0000009> ;
+    ns1:RO_0000080 ex:316-4401_material .
+
+ex:316-4401_fraction_carbon a ns2:PMD_0025997 ;
+    ns1:IAO_0000039 ns1:UO_0000163 ;
+    ns1:OBI_0001937 "0.022" .
+
+ex:316-4401_fraction_chromium a ns2:PMD_0025997 ;
+    ns1:IAO_0000039 ns1:UO_0000163 ;
+    ns1:OBI_0001937 "16.9" .
+
+ex:316-4401_fraction_manganese a ns2:PMD_0025997 ;
+    ns1:IAO_0000039 ns1:UO_0000163 ;
+    ns1:OBI_0001937 "1.51" .
+
+ex:316-4401_fraction_molybdenum a ns2:PMD_0025997 ;
+    ns1:IAO_0000039 ns1:UO_0000163 ;
+    ns1:OBI_0001937 "2.01" .
+
+ex:316-4401_fraction_nickel a ns2:PMD_0025997 ;
+    ns1:IAO_0000039 ns1:UO_0000163 ;
+    ns1:OBI_0001937 "10" .
+
+ex:316-4401_fraction_nitrogen a ns2:PMD_0025997 ;
+    ns1:IAO_0000039 ns1:UO_0000163 ;
+    ns1:OBI_0001937 "0.024" .
+
+ex:316-4401_fraction_phosphorus a ns2:PMD_0025997 ;
+    ns1:IAO_0000039 ns1:UO_0000163 ;
+    ns1:OBI_0001937 "0.036" .
+
+ex:316-4401_fraction_silicon a ns2:PMD_0025997 ;
+    ns1:IAO_0000039 ns1:UO_0000163 ;
+    ns1:OBI_0001937 "0.4" .
+
+ex:316-4401_fraction_sulfur a ns2:PMD_0025997 ;
+    ns1:IAO_0000039 ns1:UO_0000163 ;
+    ns1:OBI_0001937 "0.002" .
+
+ex:316-4401_material a ns2:PMD_0000000 .
+
