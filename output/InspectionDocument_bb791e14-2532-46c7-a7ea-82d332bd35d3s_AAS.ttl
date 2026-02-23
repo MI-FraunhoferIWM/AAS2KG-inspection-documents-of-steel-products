@@ -77,25 +77,25 @@ ex:316-4401_some_carbon a ns2:PMD_0020030 ;
 ex:316-4401_some_chromium a ns2:PMD_0020029 ;
     ns1:BFO_0000050 ex:316-4401_material .
 
-ex:316-4401_some_manganese a <https://w3id.org/pmd/tto/TTO_0000101> ;
+ex:316-4401_some_manganese a ns2:PMD_0020078 ;
     ns1:BFO_0000050 ex:316-4401_material .
 
-ex:316-4401_some_molybdenum a <https://w3id.org/pmd/tto/TTO_0000104> ;
+ex:316-4401_some_molybdenum a ns2:PMD_0020034 ;
     ns1:BFO_0000050 ex:316-4401_material .
 
 ex:316-4401_some_nickel a ns2:PMD_0020051 ;
     ns1:BFO_0000050 ex:316-4401_material .
 
-ex:316-4401_some_nitrogen a <https://w3id.org/pmd/tto/TTO_0000105> ;
+ex:316-4401_some_nitrogen a ns2:PMD_0020038 ;
     ns1:BFO_0000050 ex:316-4401_material .
 
-ex:316-4401_some_phosphorus a <https://w3id.org/pmd/tto/TTO_0000102> ;
+ex:316-4401_some_phosphorus a ns2:PMD_0020047 ;
     ns1:BFO_0000050 ex:316-4401_material .
 
-ex:316-4401_some_silicon a <https://w3id.org/pmd/tto/TTO_0000100> ;
+ex:316-4401_some_silicon a ns2:PMD_0020050 ;
     ns1:BFO_0000050 ex:316-4401_material .
 
-ex:316-4401_some_sulfur a <https://w3id.org/pmd/tto/TTO_0000103> ;
+ex:316-4401_some_sulfur a ns2:PMD_0020059 ;
     ns1:BFO_0000050 ex:316-4401_material .
 
 ex:316-4401_tensile_strength a <https://w3id.org/pmd/tto/TTO_0000053> ;

@@ -18,6 +18,12 @@ PREFIX mass_proportion: <https://w3id.org/pmd/co/PMD_0020102>
 PREFIX portion_of_nickel: <https://w3id.org/pmd/co/PMD_0020051>
 PREFIX portion_of_carbon: <https://w3id.org/pmd/co/PMD_0020030>
 PREFIX portion_of_chromium: <https://w3id.org/pmd/co/PMD_0020029>
+PREFIX portion_of_molybdenum: <https://w3id.org/pmd/co/PMD_0020034>
+PREFIX portion_of_manganese: <https://w3id.org/pmd/co/PMD_0020078>
+PREFIX portion_of_silicon: <https://w3id.org/pmd/co/PMD_0020050>
+PREFIX portion_of_phosphorus: <https://w3id.org/pmd/co/PMD_0020047>
+PREFIX portion_of_sulfur: <https://w3id.org/pmd/co/PMD_0020059>
+PREFIX portion_of_nitrogen: <https://w3id.org/pmd/co/PMD_0020038>
 
 PREFIX quality_of: <http://purl.obolibrary.org/obo/RO_0000080>
 PREFIX has_member: <http://purl.obolibrary.org/obo/RO_0002351>
@@ -66,12 +72,12 @@ CONSTRUCT {
   ex:PLACEHOLDER_some_carbon a portion_of_carbon: ; part_of: ex:PLACEHOLDER_material .
   ex:PLACEHOLDER_some_nickel a portion_of_nickel: ; part_of: ex:PLACEHOLDER_material .
   ex:PLACEHOLDER_some_chromium a portion_of_chromium: ; part_of: ex:PLACEHOLDER_material .
-  ex:PLACEHOLDER_some_silicon a tto:TTO_0000100 ; part_of: ex:PLACEHOLDER_material .
-  ex:PLACEHOLDER_some_manganese a tto:TTO_0000101 ; part_of: ex:PLACEHOLDER_material .
-  ex:PLACEHOLDER_some_phosphorus a tto:TTO_0000102 ; part_of: ex:PLACEHOLDER_material .
-  ex:PLACEHOLDER_some_sulfur a tto:TTO_0000103 ; part_of: ex:PLACEHOLDER_material .
-  ex:PLACEHOLDER_some_molybdenum a tto:TTO_0000104 ; part_of: ex:PLACEHOLDER_material .
-  ex:PLACEHOLDER_some_nitrogen a tto:TTO_0000105 ; part_of: ex:PLACEHOLDER_material .
+  ex:PLACEHOLDER_some_silicon a portion_of_silicon: ; part_of: ex:PLACEHOLDER_material .
+  ex:PLACEHOLDER_some_manganese a portion_of_manganese: ; part_of: ex:PLACEHOLDER_material .
+  ex:PLACEHOLDER_some_phosphorus a portion_of_phosphorus: ; part_of: ex:PLACEHOLDER_material .
+  ex:PLACEHOLDER_some_sulfur a portion_of_sulfur: ; part_of: ex:PLACEHOLDER_material .
+  ex:PLACEHOLDER_some_molybdenum a portion_of_molybdenum: ; part_of: ex:PLACEHOLDER_material .
+  ex:PLACEHOLDER_some_nitrogen a portion_of_nitrogen: ; part_of: ex:PLACEHOLDER_material .
 
   ex:PLACEHOLDER_chem_comp a chemical_composition: ;
       quality_of: ex:PLACEHOLDER_material ;
