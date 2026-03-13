@@ -1,13 +1,18 @@
 PREFIX aas: <https://admin-shell.io/aas/3/0/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX tto: <https://w3id.org/pmd/tto/>
-PREFIX qudt: <http://qudt.org/schema/qudt/>
+PREFIX pmd:    <https://w3id.org/pmd/co/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX obo:  <http://purl.obolibrary.org/obo/>
 
 PREFIX ns1: <https://admin-shell.io/aas/3/0/Property/>
 PREFIX ns2: <https://admin-shell.io/aas/3/0/Key/>
 PREFIX ns3: <https://admin-shell.io/aas/3/0/Reference/>
 PREFIX ns5: <https://admin-shell.io/aas/3/0/HasSemantics/>
+PREFIX ns6: <https://admin-shell.io/aas/3/0/Referable/>
+PREFIX ns7: <https://admin-shell.io/aas/3/0/AbstractLangString/>
 
 PREFIX ex: <http://www.example.org/#>
 PREFIX material: <https://w3id.org/pmd/co/PMD_0000000>
@@ -40,32 +45,67 @@ PREFIX mass_percentage: <http://purl.obolibrary.org/obo/UO_0000163>
 
 CONSTRUCT {
 
-  ex:PLACEHOLDER_material a material: .
+  # Material entity (BFO:material entity)
+  ex:PLACEHOLDER_material a pmd:PMD_0000000, obo:BFO_0000040 ;
+    rdfs:label ?materialNameValueFinal .
 
-  # ================ Material properties ===============
+  # ================ Material properties ===============  
+
+  # Quality individual — typed with PMDco quality class
+
+  # Tensile strength
   ex:PLACEHOLDER_tensile_strength a tto:TTO_0000053 ;
-    quality_of: ex:PLACEHOLDER_material . 
+    obo:RO_0000052 ex:PLACEHOLDER_material ;     # characteristic of (quality -> material)
+    obo:IAO_0000417 ex:PLACEHOLDER_tensile_strength_scalar_value_specification .  # is quality measured as (quality -> datum)
 
-  ex:PLACEHOLDER_tensile_strength_value a scalar_value_specification: ;
-    has_specified_numeric_value: ?tensileStrengthValueFinal ;
-    has_measurement_unit_label: qudt:MegaPA ; 
-    specifies_value_of: ex:PLACEHOLDER_tensile_strength .
+  ex:PLACEHOLDER_material obo:RO_0000086 ex:PLACEHOLDER_tensile_strength .     # has quality (material -> quality)
+  
+  # Measurement datum — scalar value specification (OBI)
+  ex:PLACEHOLDER_tensile_strength_scalar_value_specification a obo:OBI_0001931 ;
+          rdfs:label       ?tensileStrengthLabel ;
+          obo:OBI_0001938  ex:PLACEHOLDER_tensile_strength_value .           # has value specification (datum -> qv)
 
+  # QuantityValue (QUDT) — treated as value specification, future PMDco alignment
+  ex:PLACEHOLDER_tensile_strength_value a qudt:QuantityValue ;
+      qudt:unit           qudt:MegaPA ;
+      qudt:numericValue  ?tensileStrengthValueFinal ;
+      rdfs:label         ?tensileStrengthLabel .
+
+  # Yield strength
   ex:PLACEHOLDER_yield_strength a tto:TTO_0000009 ;
-    quality_of: ex:PLACEHOLDER_material . 
+    obo:RO_0000052 ex:PLACEHOLDER_material ;     # characteristic of (quality -> material)
+    obo:IAO_0000417 ex:PLACEHOLDER_yield_strength_scalar_value_specification .  # is quality measured as (quality -> datum)
 
-  ex:PLACEHOLDER_yield_strength_value a scalar_value_specification: ;
-    has_specified_numeric_value: ?yieldStrengthValueFinal ;
-    has_measurement_unit_label: qudt:MegaPA ; 
-    specifies_value_of: ex:PLACEHOLDER_yield_strength .
+  ex:PLACEHOLDER_material obo:RO_0000086 ex:PLACEHOLDER_yield_strength .     # has quality (material -> quality)
+  
+  # Measurement datum — scalar value specification (OBI)
+  ex:PLACEHOLDER_yield_strength_scalar_value_specification a obo:OBI_0001931 ;
+          rdfs:label       ?yieldStrengthLabel ;
+          obo:OBI_0001938  ex:PLACEHOLDER_yield_strength_value .           # has value specification (datum -> qv)
 
+  # QuantityValue (QUDT) — treated as value specification, future PMDco alignment
+  ex:PLACEHOLDER_yield_strength_value a qudt:QuantityValue ;
+      qudt:unit           qudt:MegaPA ;
+      qudt:numericValue  ?yieldStrengthValueFinal ;
+      rdfs:label         ?yieldStrengthLabel .
+
+  # Elongation after fracture
   ex:PLACEHOLDER_elongation_after_fracture a tto:TTO_0000033 ;
-    quality_of: ex:PLACEHOLDER_material . 
+    obo:RO_0000052 ex:PLACEHOLDER_material ;     # characteristic of (quality -> material)
+    obo:IAO_0000417 ex:PLACEHOLDER_elongation_after_fracture_scalar_value_specification .  # is quality measured as (quality -> datum)
 
-  ex:PLACEHOLDER_elongation_after_fracture_value a scalar_value_specification: ;
-    has_specified_numeric_value: ?elongationAfterFractureValueFinal ;
-    has_measurement_unit_label: qudt:PERCENT ; 
-    specifies_value_of: ex:PLACEHOLDER_elongation_after_fracture .
+  ex:PLACEHOLDER_material obo:RO_0000086 ex:PLACEHOLDER_elongation_after_fracture .     # has quality (material -> quality)
+  
+  # Measurement datum — scalar value specification (OBI)
+  ex:PLACEHOLDER_elongation_after_fracture_scalar_value_specification a obo:OBI_0001931 ;
+          rdfs:label       ?elongationAfterFractureLabel ;
+          obo:OBI_0001938  ex:PLACEHOLDER_elongation_after_fracture_value .           # has value specification (datum -> qv)
+
+  # QuantityValue (QUDT) — treated as value specification, future PMDco alignment
+  ex:PLACEHOLDER_elongation_after_fracture_value a qudt:QuantityValue ;
+      qudt:unit           qudt:MegaPA ;
+      qudt:numericValue  ?elongationAfterFractureValueFinal ;
+      rdfs:label         ?elongationAfterFractureLabel .
 
   # ========= Chemical composition =========
   # Chemical elements and mass proportions
@@ -155,13 +195,27 @@ CONSTRUCT {
 }
 WHERE {
 
+  # Material name
+  OPTIONAL {
+    ?materialNameProp a aas:Property ;
+        ns1:value ?materialNameValue ;
+        ns5:semanticId ?materialNameSemantic .
+    ?materialNameSemantic ns3:keys ?materialNameKey .
+    ?materialNameKey ns2:value "0173-1#02-AAZ536#003" .
+
+  } 
+  BIND(COALESCE(?materialNameValue, "N/A") AS ?materialNameValueFinal)
+
   # Tensile strength
   OPTIONAL {
     ?tensileStrengthProp a aas:Property ;
         ns1:value ?tensileStrengthValue ;
-        ns5:supplementalSemanticIds ?tensileStrengthSS .
+        ns6:displayName ?tensileStrengthDisplayName ; 
+        ns5:semanticId ?tensileStrengthSS .
     ?tensileStrengthSS ns3:keys ?tensileStrengthKey .
-    ?tensileStrengthKey ns2:value "https://w3id.org/pmd/tto/TTO_0000053" .
+    ?tensileStrengthKey ns2:value "https://admin-shell.io/idta/InspectionDocumentsOfSteelProducts/TensileStrengthMean/1/0" .
+    ?tensileStrengthDisplayName ns7:language "en" .
+    ?tensileStrengthDisplayName ns7:text ?tensileStrengthLabel .
 
   } 
   BIND(COALESCE(?tensileStrengthValue, "N/A") AS ?tensileStrengthValueFinal)
@@ -170,9 +224,12 @@ WHERE {
   OPTIONAL {
     ?yieldStrengthProp a aas:Property ;
         ns1:value ?yieldStrengthValue ;
-        ns5:supplementalSemanticIds ?yieldStrengthSS .
+        ns6:displayName ?yieldStrengthDisplayName ;
+        ns5:semanticId ?yieldStrengthSS .
     ?yieldStrengthSS ns3:keys ?yieldStrengthKey .
-    ?yieldStrengthKey ns2:value "https://w3id.org/pmd/tto/TTO_0000009" .
+    ?yieldStrengthKey ns2:value "https://admin-shell.io/idta/InspectionDocumentsOfSteelProducts/YieldOrProofStrengthMean/1/0" .
+    ?yieldStrengthDisplayName ns7:language "en" .
+    ?yieldStrengthDisplayName ns7:text ?yieldStrengthLabel .
 
   }
   BIND(COALESCE(?yieldStrengthValue, "N/A") AS ?yieldStrengthValueFinal)
@@ -181,64 +238,67 @@ WHERE {
   OPTIONAL {
     ?elongationProp a aas:Property ;
         ns1:value ?elongationAfterFractureValue ;
-        ns5:supplementalSemanticIds ?elongationSS .
+        ns6:displayName ?elongationAfterFractureDisplayName ;
+        ns5:semanticId ?elongationSS .
     ?elongationSS ns3:keys ?elongationKey .
-    ?elongationKey ns2:value "https://w3id.org/pmd/tto/TTO_0000033" .
+    ?elongationKey ns2:value "https://admin-shell.io/idta/InspectionDocumentsOfSteelProducts/ElongationAfterFractureMean/1/0" .
+    ?elongationAfterFractureDisplayName ns7:language "en" .
+    ?elongationAfterFractureDisplayName ns7:text ?elongationAfterFractureLabel .
   }
   BIND(COALESCE(?elongationAfterFractureValue, "N/A") AS ?elongationAfterFractureValueFinal)
 
   # Optional binding for all elements with default 0
   OPTIONAL {
-    ?carbonProp a aas:Property ; ns1:value ?carbonValue ; ns5:supplementalSemanticIds ?carbonSS .
-    ?carbonSS ns3:keys ?carbonKey . ?carbonKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_27594" .
+    ?carbonProp a aas:Property ; ns1:value ?carbonValue ; ns5:semanticId ?carbonSS .
+    ?carbonSS ns3:keys ?carbonKey . ?carbonKey ns2:value "https://admin-shell.io/idta/InspectionDocumentsOfSteelProducts/MassFraction_C/1/0" .
   }
   BIND(COALESCE(?carbonValue, "N/A") AS ?carbonValueFinal)
 
   OPTIONAL {
-    ?nickelProp a aas:Property ; ns1:value ?nickelValue ; ns5:supplementalSemanticIds ?nickelSS .
-    ?nickelSS ns3:keys ?nickelKey . ?nickelKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_28112" .
+    ?nickelProp a aas:Property ; ns1:value ?nickelValue ; ns5:semanticId ?nickelSS .
+    ?nickelSS ns3:keys ?nickelKey . ?nickelKey ns2:value "https://admin-shell.io/idta/InspectionDocumentsOfSteelProducts/MassFraction_Ni/1/0" .
   }
   BIND(COALESCE(?nickelValue, "N/A") AS ?nickelValueFinal)
 
   OPTIONAL {
-    ?chromiumProp a aas:Property ; ns1:value ?chromiumValue ; ns5:supplementalSemanticIds ?chromiumSS .
-    ?chromiumSS ns3:keys ?chromiumKey . ?chromiumKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_28073" .
+    ?chromiumProp a aas:Property ; ns1:value ?chromiumValue ; ns5:semanticId ?chromiumSS .
+    ?chromiumSS ns3:keys ?chromiumKey . ?chromiumKey ns2:value "https://admin-shell.io/idta/InspectionDocumentsOfSteelProducts/MassFraction_Cr/1/0" .
   }
   BIND(COALESCE(?chromiumValue, "N/A") AS ?chromiumValueFinal)
 
   OPTIONAL {
-    ?siliconProp a aas:Property ; ns1:value ?siliconValue ; ns5:supplementalSemanticIds ?siliconSS .
-    ?siliconSS ns3:keys ?siliconKey . ?siliconKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_27573" .
+    ?siliconProp a aas:Property ; ns1:value ?siliconValue ; ns5:semanticId ?siliconSS .
+    ?siliconSS ns3:keys ?siliconKey . ?siliconKey ns2:value "https://admin-shell.io/idta/InspectionDocumentsOfSteelProducts/MassFraction_Si/1/0" .
   }
   BIND(COALESCE(?siliconValue, "N/A") AS ?siliconValueFinal)
 
   OPTIONAL {
-    ?manganeseProp a aas:Property ; ns1:value ?manganeseValue ; ns5:supplementalSemanticIds ?manganeseSS .
-    ?manganeseSS ns3:keys ?manganeseKey . ?manganeseKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_18291" .
+    ?manganeseProp a aas:Property ; ns1:value ?manganeseValue ; ns5:semanticId ?manganeseSS .
+    ?manganeseSS ns3:keys ?manganeseKey . ?manganeseKey ns2:value "https://admin-shell.io/idta/InspectionDocumentsOfSteelProducts/MassFraction_Mn/1/0" .
   }
   BIND(COALESCE(?manganeseValue, "N/A") AS ?manganeseValueFinal)
 
   OPTIONAL {
-    ?phosphorusProp a aas:Property ; ns1:value ?phosphorusValue ; ns5:supplementalSemanticIds ?phosphorusSS .
-    ?phosphorusSS ns3:keys ?phosphorusKey . ?phosphorusKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_28659" .
+    ?phosphorusProp a aas:Property ; ns1:value ?phosphorusValue ; ns5:semanticId ?phosphorusSS .
+    ?phosphorusSS ns3:keys ?phosphorusKey . ?phosphorusKey ns2:value "https://admin-shell.io/idta/InspectionDocumentsOfSteelProducts/MassFraction_P/1/0" .
   }
   BIND(COALESCE(?phosphorusValue, "N/A") AS ?phosphorusValueFinal)
 
   OPTIONAL {
-    ?sulfurProp a aas:Property ; ns1:value ?sulfurValue ; ns5:supplementalSemanticIds ?sulfurSS .
-    ?sulfurSS ns3:keys ?sulfurKey . ?sulfurKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_26833" .
+    ?sulfurProp a aas:Property ; ns1:value ?sulfurValue ; ns5:semanticId ?sulfurSS .
+    ?sulfurSS ns3:keys ?sulfurKey . ?sulfurKey ns2:value "https://admin-shell.io/idta/InspectionDocumentsOfSteelProducts/MassFraction_S/1/0" .
   }
   BIND(COALESCE(?sulfurValue, "N/A") AS ?sulfurValueFinal)
 
   OPTIONAL {
-    ?molybdenumProp a aas:Property ; ns1:value ?molybdenumValue ; ns5:supplementalSemanticIds ?molybdenumSS .
-    ?molybdenumSS ns3:keys ?molybdenumKey . ?molybdenumKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_28685" .
+    ?molybdenumProp a aas:Property ; ns1:value ?molybdenumValue ; ns5:semanticId ?molybdenumSS .
+    ?molybdenumSS ns3:keys ?molybdenumKey . ?molybdenumKey ns2:value "https://admin-shell.io/idta/InspectionDocumentsOfSteelProducts/MassFraction_Mo/1/0" .
   }
   BIND(COALESCE(?molybdenumValue, "N/A") AS ?molybdenumValueFinal)
 
   OPTIONAL {
-    ?nitrogenProp a aas:Property ; ns1:value ?nitrogenValue ; ns5:supplementalSemanticIds ?nitrogenSS .
-    ?nitrogenSS ns3:keys ?nitrogenKey . ?nitrogenKey ns2:value "http://purl.obolibrary.org/obo/CHEBI_25555" .
+    ?nitrogenProp a aas:Property ; ns1:value ?nitrogenValue ; ns5:semanticId ?nitrogenSS .
+    ?nitrogenSS ns3:keys ?nitrogenKey . ?nitrogenKey ns2:value "https://admin-shell.io/idta/InspectionDocumentsOfSteelProducts/MassFraction_N/1/0" .
   }
   BIND(COALESCE(?nitrogenValue, "N/A") AS ?nitrogenValueFinal)
 
