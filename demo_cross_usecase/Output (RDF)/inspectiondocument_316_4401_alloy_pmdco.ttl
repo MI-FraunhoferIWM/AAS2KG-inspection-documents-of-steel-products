@@ -1,0 +1,35 @@
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix pmd: <https://w3id.org/pmd/co/> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix tto: <https://w3id.org/pmd/tto/> .
+
+<https://mfg-x.2024.2de/dsp/assets/component-87654321> a obo:BFO_0000030,
+        pmd:PMD_0020096 ;
+    obo:RO_0000086 <https://mfg-x.2024.2de/dsp/assets/component-87654321/elon_af_quality>,
+        <https://mfg-x.2024.2de/dsp/assets/component-87654321/tensile_strength_quality>,
+        <https://mfg-x.2024.2de/dsp/assets/component-87654321/yield_strength_quality> .
+
+<https://mfg-x.2024.2de/dsp/assets/component-87654321/elon_af_quality> a pmd:PMD_0000848,
+        tto:TTO_0000033 ;
+    obo:OBI_0001938 <https://mfg-x.2024.2de/dsp/assets/component-87654321/elon_af_value> .
+
+<https://mfg-x.2024.2de/dsp/assets/component-87654321/elon_af_value> a obo:OBI_0001931 ;
+    obo:IAO_0000039 qudt:PERCENT ;
+    pmd:PMD_0000006 "60" .
+
+<https://mfg-x.2024.2de/dsp/assets/component-87654321/tensile_strength_quality> a pmd:PMD_0000848,
+        tto:TTO_0000053 ;
+    obo:OBI_0001938 <https://mfg-x.2024.2de/dsp/assets/component-87654321/tensile_strength_value> .
+
+<https://mfg-x.2024.2de/dsp/assets/component-87654321/tensile_strength_value> a obo:OBI_0001931 ;
+    obo:IAO_0000039 qudt:MegaPA ;
+    pmd:PMD_0000006 "632" .
+
+<https://mfg-x.2024.2de/dsp/assets/component-87654321/yield_strength_quality> a pmd:PMD_0000848,
+        tto:TTO_0000009 ;
+    obo:OBI_0001938 <https://mfg-x.2024.2de/dsp/assets/component-87654321/yield_strength_value> .
+
+<https://mfg-x.2024.2de/dsp/assets/component-87654321/yield_strength_value> a obo:OBI_0001931 ;
+    obo:IAO_0000039 qudt:MegaPA ;
+    pmd:PMD_0000006 "276" .
+

@@ -1,0 +1,107 @@
+PREFIX aas: <https://admin-shell.io/aas/3/0/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX tto: <https://w3id.org/pmd/tto/>
+PREFIX pmd: <https://w3id.org/pmd/co/>
+PREFIX qudt: <http://qudt.org/schema/qudt/>
+
+PREFIX ns1: <https://admin-shell.io/aas/3/0/Property/>
+PREFIX ns2: <https://admin-shell.io/aas/3/0/Key/>
+PREFIX ns3: <https://admin-shell.io/aas/3/0/Reference/>
+PREFIX ns5: <https://admin-shell.io/aas/3/0/HasSemantics/>
+
+PREFIX material: <https://w3id.org/pmd/co/PMD_0000000>
+PREFIX has_measurement_unit_label: <http://purl.obolibrary.org/obo/IAO_0000039>
+PREFIX scalar_value_specification: <http://purl.obolibrary.org/obo/OBI_0001931>
+
+PREFIX material_entity: <http://purl.obolibrary.org/obo/BFO_0000040>
+PREFIX has_quality: <http://purl.obolibrary.org/obo/RO_0000086>
+PREFIX steel: <https://w3id.org/pmd/co/PMD_0020096>
+PREFIX object: <http://purl.obolibrary.org/obo/BFO_0000030>
+PREFIX is_quality_measured_as: <http://purl.obolibrary.org/obo/IAO_0000417>
+PREFIX quality_is_specified_as: <http://purl.obolibrary.org/obo/IAO_0000419>
+PREFIX has_value_specification: <http://purl.obolibrary.org/obo/OBI_0001938>
+PREFIX has_value: <https://w3id.org/pmd/co/PMD_0000006>
+PREFIX mechanical_property: <https://w3id.org/pmd/co/PMD_0000848>
+
+CONSTRUCT {
+
+# ================ Object itself that is steel ===============
+
+   ?component_object a steel:, object: .
+
+# ================ Material properties ===============
+
+  ?component_object has_quality: ?qual_ys, ?qual_ts, ?qual_elon .
+
+  ?qual_elon a tto:TTO_0000033, mechanical_property: ;
+    has_value_specification: ?qual_elon_yalue .
+
+  ?qual_elon_yalue a scalar_value_specification: ;
+    has_value: ?elongationAfterFractureValueFinal ;
+    has_measurement_unit_label: qudt:PERCENT .
+
+  ?qual_ts a tto:TTO_0000053, mechanical_property: ;
+    has_value_specification: ?qual_ts_value .
+
+  ?qual_ts_value a scalar_value_specification: ;
+    has_value: ?tensileStrengthValueFinal ;
+    has_measurement_unit_label: qudt:MegaPA  .
+
+  ?qual_ys a tto:TTO_0000009, mechanical_property: ;
+    has_value_specification: ?qual_ys_yalue .
+
+  ?qual_ys_yalue a scalar_value_specification: ;
+    has_value: ?yieldStrengthValueFinal ;
+    has_measurement_unit_label: qudt:MegaPA  .
+
+
+}
+WHERE {
+
+  VALUES (?component_object) {
+        (<https://mfg-x.2024.2de/dsp/assets/component-87654321>)
+  }
+
+  # Tensile strength (works)
+  BIND(IRI(CONCAT(STR(?component_object), STR("/tensile_strength_quality"))) AS ?qual_ts)
+  BIND(IRI(CONCAT(STR(?component_object), STR("/tensile_strength_value"))) AS ?qual_ts_value)
+
+  OPTIONAL {
+    ?tensileStrengthProp a aas:Property ;
+        ns1:value ?tensileStrengthValue ;
+        ns5:semanticId ?tensileStrengthSS .
+    ?tensileStrengthSS ns3:keys ?tensileStrengthKey .
+    ?tensileStrengthKey ns2:value "https://admin-shell.io/idta/InspectionDocumentsOfSteelProducts/TensileStrengthMean/1/0" .
+
+  }
+    BIND(COALESCE(?tensileStrengthValue, "N/A") AS ?tensileStrengthValueFinal)
+
+  # Yield strength
+  BIND(IRI(CONCAT(STR(?component_object), STR("/yield_strength_quality"))) AS ?qual_ys)
+  BIND(IRI(CONCAT(STR(?component_object), STR("/yield_strength_value"))) AS ?qual_ys_yalue)
+
+  OPTIONAL {
+    ?yieldStrengthProp a aas:Property ;
+        ns1:value ?yieldStrengthValue ;
+        ns5:semanticId ?yieldStrengthSS .
+    ?yieldStrengthSS ns3:keys ?yieldStrengthKey .
+    ?yieldStrengthKey ns2:value "https://admin-shell.io/idta/InspectionDocumentsOfSteelProducts/YieldOrProofStrengthMean/1/0" .
+
+  }
+    BIND(COALESCE(?yieldStrengthValue, "N/A") AS ?yieldStrengthValueFinal)
+
+  # Elongation after fracture
+  BIND(IRI(CONCAT(STR(?component_object), STR("/elon_af_quality"))) AS ?qual_elon)
+  BIND(IRI(CONCAT(STR(?component_object), STR("/elon_af_value"))) AS ?qual_elon_yalue)
+
+  OPTIONAL {
+    ?elongationProp a aas:Property ;
+        ns1:value ?elongationAfterFractureValue ;
+        ns5:semanticId ?elongationSS .
+    ?elongationSS ns3:keys ?elongationKey .
+    ?elongationKey ns2:value "https://admin-shell.io/idta/InspectionDocumentsOfSteelProducts/ElongationAfterFractureMean/1/0" .
+  }
+  BIND(COALESCE(?elongationAfterFractureValue, "N/A") AS ?elongationAfterFractureValueFinal)
+
+}

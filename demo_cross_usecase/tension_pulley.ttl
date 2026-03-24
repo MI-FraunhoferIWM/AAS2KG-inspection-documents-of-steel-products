@@ -1,0 +1,31 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix pmdco: <https://w3id.org/pmd/co/> .
+@prefix bfo: <http://purl.obolibrary.org/obo/> .
+@prefix ex: <http://example.org/assembly/> .
+
+# === Tension Pulley Assembly ===
+
+ex:TensionPulley_001
+    a pmdco:Object ;
+    rdfs:label "Tension Pulley Assembly"@en ;
+    rdfs:comment "A tension pulley consisting of components from different data spaces"@en ;
+    bfo:BFO_0000051 <https://catena-x.net/edc/assets/urn:uuid:3f5a8c2d-1234-4b6e-9abc-def012345678> ,
+<https://mfg-x.2024.2de/dsp/assets/component-87654321> .
+
+# === Part 1: Pulley Wheel (Catena-X Asset) ===
+
+<https://catena-x.net/edc/assets/urn:uuid:3f5a8c2d-1234-4b6e-9abc-def012345678>
+    a pmdco:Object ;
+    rdfs:label "Pulley Wheel"@en ;
+    bfo:BFO_0000050 ex:TensionPulley_001 ;
+    pmdco:hasMaterialDesignation "Aluminum 6061-T6"^^xsd:string .
+
+# === Part 2: Tensioner Bracket (Manufacturing-X Asset) ===
+
+<https://mfg-x.2024.2de/dsp/assets/component-87654321>
+    a pmdco:Object ;
+    rdfs:label "Tensioner Bracket"@en ;
+    bfo:BFO_0000050 ex:TensionPulley_001 ;
+    pmdco:hasMaterialDesignation "Steel AISI 304"^^xsd:string .
